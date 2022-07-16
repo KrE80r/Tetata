@@ -1,8 +1,8 @@
-# Comcast
+# Tetata
 
-Testing distributed systems under hard failures like network partitions and instance termination is critical, but it's also important we test them under [less catastrophic conditions](http://www.bravenewgeek.com/sometimes-kill-9-isnt-enough/) because this is what they most often experience. Comcast is a tool designed to simulate common network problems like latency, bandwidth restrictions, and dropped/reordered/corrupted packets.
+Testing distributed systems under hard failures like network partitions and instance termination is critical, but it's also important we test them under [less catastrophic conditions](http://www.bravenewgeek.com/sometimes-kill-9-isnt-enough/) because this is what they most often experience. Tetata is a tool designed to simulate common network problems like latency, bandwidth restrictions, and dropped/reordered/corrupted packets.
 
-It works by wrapping up some system tools in a portable(ish) way. On BSD-derived systems such as OSX, we use tools like `ipfw` and `pfctl` to inject failure. On Linux, we use `iptables` and `tc`. Comcast is merely a thin wrapper around these controls. Windows support may be possible with `wipfw` or even the native network stack, but this has not yet been implemented in Comcast and may be at a later date.
+It works by wrapping up some system tools in a portable(ish) way. On BSD-derived systems such as OSX, we use tools like `ipfw` and `pfctl` to inject failure. On Linux, we use `iptables` and `tc`. Tetata is merely a thin wrapper around these controls. Windows support may be possible with `wipfw` or even the native network stack, but this has not yet been implemented in Tetata and may be at a later date.
 
 ## Installation
 
@@ -12,15 +12,15 @@ $ go install github.com/tylertreat/comcast@latest
 
 ## Usage
 
-On Linux, Comcast supports several options: device, latency, target/default bandwidth, packet loss, protocol, and port number.
+On Linux, Tetata supports several options: device, latency, target/default bandwidth, packet loss, protocol, and port number.
 
 ```
 $ comcast --device=eth0 --latency=250 --target-bw=1000 --default-bw=1000000 --packet-loss=10% --target-addr=8.8.8.8,10.0.0.0/24 --target-proto=tcp,udp,icmp --target-port=80,22,1000:2000
 ```
 
-On OSX, Comcast will check for `pfctl` support (as of Yosemite), which supports the same options as above. If `pfctl` is not available, it will use `ipfw` instead, which supports device, latency, target bandwidth, and packet-loss options.
+On OSX, Tetata will check for `pfctl` support (as of Yosemite), which supports the same options as above. If `pfctl` is not available, it will use `ipfw` instead, which supports device, latency, target bandwidth, and packet-loss options.
 
-On BSD (with `ipfw`), Comcast currently supports only: device, latency, target bandwidth, and packet loss. 
+On BSD (with `ipfw`), Tetata currently supports only: device, latency, target bandwidth, and packet loss. 
 
 ```
 $ comcast --device=eth0 --latency=250 --target-bw=1000 --packet-loss=10%
@@ -80,7 +80,7 @@ $ ipfw delete 1
 
 ## Network Condition Profiles
 
-Here's a list of network conditions with values that you can plug into Comcast. Please add any more that you may come across.
+Here's a list of network conditions with values that you can plug into Tetata. Please add any more that you may come across.
 
 Name | Latency | Bandwidth | Packet-loss
 :-- | --: | --: | --:
